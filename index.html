@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GatKat - Custom Engraving & CNC</title>
+    <link rel="icon" type="image/png" href="Assets/GatKatBody.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #666;
+        }
+
+        .search-icon {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #000;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            padding-top: 130px;
+            box-sizing: border-box;
+        }
+
+        .hero-content {
+            background-color: white;
+            border-radius: 20px;
+            padding: 50px;
+            width: 100%;
+            min-height: calc(100vh - 160px);
+            box-shadow: 0 10px 50px rgba(255,255,255,0.1);
+            box-sizing: border-box;
+        }
+
+        /* Popular Items Section */
+        .shop-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0 50px;
+        }
+
+        .products-scroll-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 0 50px 20px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .products-scroll-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .products-scroll-container::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .products-scroll-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        .products-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .products-gallery {
+            display: inline-flex;
+            gap: 30px;
+        }
+
+        .product-card {
+            display: inline-block;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            white-space: normal;
+            vertical-align: top;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 24px;
+            color: #000;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .product-btn {
+            flex: 1;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .learn-more-product {
+            background-color: #f0f0f0;
+            color: #000;
+            border: 2px solid #000;
+        }
+
+        .learn-more-product:hover {
+            background-color: #e0e0e0;
+        }
+
+        .buy-now-product {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .buy-now-product:hover {
+            background-color: #0052a3;
+        }
+
+        /* Capabilities Section */
+        .capabilities-section {
+            padding: 80px 50px;
+            background-color: #fff;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .capability-card {
+            background-color: #f5f5f5;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .capability-card:hover {
+            background-color: #e8e8e8;
+        }
+
+        .capability-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .capability-icon img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .capability-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .capability-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .learn-more-btn:hover {
+            background-color: #0052a3;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 50px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 50px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 40px auto;
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #0066cc;
+            color: white;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0052a3;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                gap: 30px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 18px;
+            }
+
+            .search-icon {
+                width: 25px;
+                height: 25px;
+            }
+
+            .hero {
+                padding: 30px 30px;
+                padding-top: 110px;
+            }
+
+            .hero-content {
+                padding: 30px;
+                min-height: calc(100vh - 140px);
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .products-grid,
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <img src="Assets/GatKatLogo.svg" alt="GatKat Logo" class="logo">
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </li>
+            <li><a href="#shop">SHOP</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+            <li class="cart-icon"><img src="Assets/online-shopping.png" alt="Cart"></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- Add your hero content here -->
+        </div>
+    </section>
+
+    <!-- Popular Items Section -->
+    <section id="shop" class="shop-section">
+        <h2 class="section-title">Popular Items</h2>
+        <div class="products-scroll-container">
+            <div class="products-gallery">
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">Custom Engraving</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">CNC Project</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">UV Laser Item</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">Featured Product</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">3D Printed Part</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">Product Image</div>
+                    <h3 class="product-title">Custom Design</h3>
+                    <p class="product-price">$XX.XX</p>
+                    <div class="product-buttons">
+                        <a href="#" class="product-btn learn-more-product">Learn More</a>
+                        <a href="#" class="product-btn buy-now-product">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities-section">
+        <h2 class="section-title">Our Capabilities</h2>
+        <div class="capabilities-grid">
+            <div class="capability-card">
+                <div class="capability-icon"><img src="Assets/laser.png" alt="Laser"></div>
+                <h3 class="capability-title">UV Laser Engraving</h3>
+                <p class="capability-description">
+                    High-precision UV laser engraving for detailed and permanent marking. 
+                    Perfect for personalization, branding, and intricate designs on multiple 
+                    surfaces and materials.
+                </p>
+                <a href="laser-engraving.html" class="learn-more-btn">Learn More</a>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon"><img src="Assets/milling-machine.png" alt="CNC Machine"></div>
+                <h3 class="capability-title">CNC Machining</h3>
+                <p class="capability-description">
+                    Precision CNC machining services for custom parts and prototypes. 
+                    We work with various materials to bring your designs to life with 
+                    exceptional accuracy and quality.
+                </p>
+                <a href="cnc-services.html" class="learn-more-btn">Learn More</a>
+            </div>
+            <div class="capability-card">
+                <div class="capability-icon"><img src="Assets/3d-printer.png" alt="3D Printer"></div>
+                <h3 class="capability-title">3D Printing</h3>
+                <p class="capability-description">
+                    High-quality 3D printing services for rapid prototyping and custom parts. 
+                    Multi-color capabilities and professional-grade results with fast 
+                    turnaround times for your projects.
+                </p>
+                <a href="3d-printing.html" class="learn-more-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">About GatKat</h2>
+        <div class="about-content">
+            <p>
+                At GatKat, we specialize in precision manufacturing and custom engraving services. 
+                With state-of-the-art CNC machining and UV laser engraving technology, we bring 
+                your creative visions to reality. Whether you need custom parts, personalized items, 
+                or intricate designs, our team is dedicated to delivering exceptional quality and 
+                precision in every project.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-info">
+            <p>Email: info@gatkat.com</p>
+            <p>Phone: (XXX) XXX-XXXX</p>
+        </div>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">SEND MESSAGE</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 GatKat. All rights reserved. | <a href="credits.html">Credits</a></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Search functionality placeholder
+        document.querySelector('.search-icon').addEventListener('click', function() {
+            const searchTerm = prompt('What are you looking for?');
+            if (searchTerm) {
+                console.log('Searching for:', searchTerm);
+                // Add your search logic here
+            }
+        });
+
+        // Cart functionality placeholder
+        document.querySelector('.cart-icon').addEventListener('click', function() {
+            alert('Cart functionality coming soon!');
+            // Add your cart logic here
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Machining Services - GatKat</title>
+    <link rel="icon" type="image/png" href="Assets/GatKatBody.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #666;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #000;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+            padding: 120px 50px 50px;
+            text-align: center;
+        }
+
+        .hero-section img.hero-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .hero-section h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content-section {
+            padding: 50px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #000;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .materials-section {
+            background-color: #f5f5f5;
+            padding: 40px 50px;
+            margin: 30px 0;
+        }
+
+        .materials-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .material-tag {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .pricing-section {
+            background-color: #fff;
+            padding: 40px 50px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .pricing-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #000;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .pricing-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #0066cc;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0052a3;
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                gap: 30px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero-section h1 {
+                font-size: 32px;
+            }
+
+            .hero-section p {
+                font-size: 18px;
+            }
+
+            .content-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html"><img src="Assets/GatKatLogo.svg" alt="GatKat Logo" class="logo"></a>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="index.html#shop">SHOP</a></li>
+            <li><a href="laser-engraving.html">LASER ENGRAVING</a></li>
+            <li><a href="3d-printing.html">3D PRINTING</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section">
+        <img src="Assets/milling-machine.png" alt="CNC Machine" class="hero-icon">
+        <h1>CNC Machining Services</h1>
+        <p>Precision CNC machining powered by Makera technology for professional-grade parts and prototypes</p>
+    </section>
+
+    <section class="content-section">
+        <h2 class="section-title">What We Offer</h2>
+        <p class="description">
+            Our CNC machining services utilize professional-grade equipment to deliver precision parts and custom designs. 
+            Whether you need prototypes, one-off custom pieces, or small batch production, we have the capabilities to 
+            bring your designs to life with exceptional accuracy and quality.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>High Precision</h3>
+                <p>Achieve tight tolerances and intricate details with our professional CNC equipment. Perfect for functional prototypes and finished parts.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Multiple Materials</h3>
+                <p>Work with wood, plastics, aluminum, and other materials. We can machine a wide variety of materials to suit your project needs.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Custom Designs</h3>
+                <p>Upload your CAD files or work with us to develop custom designs. We support standard file formats including DXF, DWG, and STL.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fast Turnaround</h3>
+                <p>Get your parts quickly without sacrificing quality. Most projects completed within 3-5 business days.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Prototyping & Production</h3>
+                <p>From single prototypes to small batch production runs, we can handle projects of various scales.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Professional Finish</h3>
+                <p>Clean edges, smooth surfaces, and professional-grade results ready for assembly or final use.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="materials-section">
+        <div class="content-section">
+            <h2 class="section-title">Materials We Work With</h2>
+            <div class="materials-list">
+                <span class="material-tag">Wood (Hardwood & Softwood)</span>
+                <span class="material-tag">MDF</span>
+                <span class="material-tag">Plywood</span>
+                <span class="material-tag">Acrylic</span>
+                <span class="material-tag">Aluminum</span>
+                <span class="material-tag">Brass</span>
+                <span class="material-tag">Copper</span>
+                <span class="material-tag">PCB Materials</span>
+                <span class="material-tag">Plastics (ABS, PVC, Delrin)</span>
+                <span class="material-tag">Foam</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="content-section">
+            <h2 class="section-title">Pricing</h2>
+            <p class="description">
+                Our pricing is based on material costs, machine time, and project complexity. Contact us for a detailed quote.
+            </p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Small Projects</h3>
+                    <div class="price">$50+</div>
+                    <ul>
+                        <li>✓ Up to 1 hour machine time</li>
+                        <li>✓ Standard materials</li>
+                        <li>✓ Simple 2D/2.5D cuts</li>
+                        <li>✓ Quick turnaround</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Medium Projects</h3>
+                    <div class="price">$150+</div>
+                    <ul>
+                        <li>✓ Up to 3 hours machine time</li>
+                        <li>✓ Premium materials available</li>
+                        <li>✓ Complex 3D toolpaths</li>
+                        <li>✓ Multiple setups</li>
+                    </ul>
+                </div>
+                <div class="pricing-card">
+                    <h3>Custom Quote</h3>
+                    <div class="price">Contact</div>
+                    <ul>
+                        <li>✓ Large batch production</li>
+                        <li>✓ Specialized materials</li>
+                        <li>✓ Complex assemblies</li>
+                        <li>✓ Ongoing projects</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="index.html#contact" class="cta-button">Request a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 GatKat. All rights reserved. | <a href="credits.html">Credits</a></p>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

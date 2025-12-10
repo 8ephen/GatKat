@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credits - GatKat</title>
+    <link rel="icon" type="image/png" href="Assets/GatKatBody.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #666;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: #000;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .content-section {
+            padding: 150px 50px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .credit-item {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #000;
+        }
+
+        .credit-item h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .credit-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .credit-content img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .credit-item a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .credit-item a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+                transition: right 0.3s ease;
+                gap: 30px;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .content-section {
+                padding: 100px 20px 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html"><img src="Assets/GatKatLogo.svg" alt="GatKat Logo" class="logo"></a>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="index.html#shop">SHOP</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <section class="content-section">
+        <h1>Credits</h1>
+        
+        <div class="credit-item">
+            <h3>CNC Machine Icon</h3>
+            <div class="credit-content">
+                <img src="Assets/milling-machine.png" alt="CNC Machine Icon">
+                <p><a href="https://www.flaticon.com/free-icons/cnc-machine" title="cnc machine icons">Cnc machine icons created by Smashicons - Flaticon</a></p>
+            </div>
+        </div>
+
+        <div class="credit-item">
+            <h3>3D Printer Icon</h3>
+            <div class="credit-content">
+                <img src="Assets/3d-printer.png" alt="3D Printer Icon">
+                <p><a href="https://www.flaticon.com/free-icons/3d-printers" title="3d printers icons">3d printers icons created by Icons_Field - Flaticon</a></p>
+            </div>
+        </div>
+
+        <div class="credit-item">
+            <h3>Laser Icon</h3>
+            <div class="credit-content">
+                <img src="Assets/laser.png" alt="Laser Icon">
+                <p><a href="https://www.flaticon.com/free-icons/laser" title="laser icons">Laser icons created by San D - Flaticon</a></p>
+            </div>
+        </div>
+
+        <div class="credit-item">
+            <h3>Shopping Cart Icon</h3>
+            <div class="credit-content">
+                <img src="Assets/online-shopping.png" alt="Shopping Cart Icon">
+                <p><a href="https://www.flaticon.com/free-icons/shopping-cart" title="shopping cart icons">Shopping cart icons created by Arafat Uddin - Flaticon</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 GatKat. All rights reserved. | <a href="credits.html">Credits</a></p>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
